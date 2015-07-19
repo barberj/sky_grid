@@ -4,18 +4,21 @@ function CreateGrid(columns, data){
 };
 
 function DisplayGrid(el_grid, data){
-  var th = document.createElement('th');
+  var tr = document.createElement('tr');
   var columns = $(el_grid).data('columns')
+  sort_by = $(el_grid).attr('sort_by')
+  sort_direction = $(el_grid).attr('sort_direction') == 'asc' ? ' ^' : ' v'
 
   for(var index in columns) {
-    var column = columns[index];
-    var td = document.createElement('td');
-    $(td).append(column);
-    $(th).append(td);
+    var text = columns[index];
+    var sort_text = sort_by == text ? sort_direction : ''
+    var th = document.createElement('th');
+    $(th).append(text + sort_text);
+    $(tr).append(th);
   };
 
   var table = document.createElement('table');
-  table.appendChild(th);
+  table.appendChild(tr);
 
   for(var dindex in data.records) {
     var datum = data.records[dindex];
@@ -58,7 +61,8 @@ function SkyGrid(){
     var grid = $(this);
     var columns = grid.data('columns');
     grid.attr('start', 0);
-    grid.attr('sort', columns[0]);
+    grid.attr('sort_by', columns[0]);
+    grid.attr('sort_direction', 'asc');
 
     SkyGridData.push({
       e: this,
