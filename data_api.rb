@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'json'
 require 'faker'
+require 'slim'
 
 transactions = (1..27).inject([]) do |t, i|
   record = {
@@ -24,4 +25,8 @@ get '/transactions' do
     records: queried,
     count: transactions.size
   }.to_json
+end
+
+get '/' do
+  slim :index
 end
