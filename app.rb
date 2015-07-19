@@ -18,6 +18,8 @@ transactions = (1..27).inject([]) do |t, i|
 end
 
 get '/transactions' do
+  content_type :json
+
   start = params.fetch('start', 0).to_i
   queried = transactions[start...start+25]
 
