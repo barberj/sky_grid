@@ -22,7 +22,7 @@ function DisplayGrid(el_grid, data){
     var tr = document.createElement('tr');
     table.appendChild(tr);
     for(var cindex in columns) {
-      var column = columns[index];
+      var column = columns[cindex];
       var value = datum[column];
       var td = document.createElement('td');
 
