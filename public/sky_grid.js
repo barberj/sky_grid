@@ -60,7 +60,7 @@ function FetchAllGridData(){
   });
 };
 
-function SkyGrid(){
+$( document ).ready(function() {
   $(this).on("grids.initialized", FetchAllGridData);
   $(this).on("grid.built", AttachHandlers);
 
@@ -82,4 +82,4 @@ function SkyGrid(){
 
     $.event.trigger("grids.initialized");
   });
-}
+});
