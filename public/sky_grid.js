@@ -1,6 +1,13 @@
 SkyGridData = this.sky_grid_data = [];
 
 function AttachHandlers(e) {
+  $('.pager').click(function (event) {
+    var grid = $(this).closest('.grid');
+    grid.attr('data-start', $(this).data('start'));
+
+    FetchGridData(grid);
+  });
+
   $('.sorter').click(function (event) {
     event.preventDefault();
     var grid = $(this).closest('.grid');
@@ -52,7 +59,16 @@ function DisplayGrid(grid, data){
     };
   };
 
+  var page_count = parseInt(data.count) / 25;
+  var pager = document.createElement('div');
+  for(var i = 0; i < page_count; i ++){
+    page = i + 1
+    $(pager).append('<span class="pager" data-start="'+ (i * 25) + '">' + page + '</span>');
+  }
+
   grid.html(table);
+  grid.append(pager);
+
   $.event.trigger("grid.built");
 };
 
