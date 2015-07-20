@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # ruby
-ruby '2.2.2'
+ruby '2.2.0'
 
 gem 'thin'
 gem 'sinatra'
