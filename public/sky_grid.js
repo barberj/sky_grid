@@ -3,16 +3,17 @@ SkyGridData = this.sky_grid_data = [];
 function AttachHandlers(e) {
   $('.sorter').click(function (event) {
     event.preventDefault();
-    grid = $(this).closest('.grid');
-    grid.attr('data-sort_by', $(this).data('sort_by'));
+    var grid = $(this).closest('.grid');
+    grid.attr('data-sort_by', $(this).attr('data-sort_by'));
+    FetchGridData(grid);
   });
 };
 
 function DisplayGrid(grid, data){
   var tr = document.createElement('tr');
   var columns = grid.data('columns')
-  sort_by = grid.data('sort_by')
-  sort_direction = grid.data('sort_direction') == 'asc' ? ' ^' : ' v'
+  var sort_by = grid.attr('data-sort_by')
+  var sort_direction = grid.attr('data-sort_direction') == 'asc' ? ' ^' : ' v'
 
   for(var index in columns) {
     var text = columns[index];
@@ -43,9 +44,8 @@ function DisplayGrid(grid, data){
   $.event.trigger("grid.built");
 };
 
-function FetchGridData(el_grid){
-  var grid = $(el_grid);
-  var url = grid.data('url') + "?start=" + grid.data('start') + "&sort_by=" + grid.data('sort_by') + "&sort_direction=" + grid.data('sort_direction') ;
+function FetchGridData(grid){
+  var url = grid.attr('data-url') + "?start=" + grid.attr('data-start') + "&sort_by=" + grid.attr('data-sort_by') + "&sort_direction=" + grid.attr('data-sort_direction');
 
   $.ajax({
     url: url
@@ -56,7 +56,7 @@ function FetchGridData(el_grid){
 
 function FetchAllGridData(){
   $.each(SkyGridData, function(index, grid){
-    FetchGridData(grid.e);
+    FetchGridData($(grid.e));
   });
 };
 
@@ -74,7 +74,7 @@ $( document ).ready(function() {
     SkyGridData.push({
       e: this,
       id: grid.attr('id'),
-      url: grid.data('url'),
+      url: grid.attr('data-url'),
       start: 0,
       columns: columns,
       sort: columns[0]
