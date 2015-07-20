@@ -45,7 +45,7 @@ function DisplayGrid(el_grid, data){
 
 function FetchGridData(el_grid){
   var grid = $(el_grid);
-  var url = grid.data('url') + "?start=" + grid.data('start');
+  var url = grid.data('url') + "?start=" + grid.data('start') + "&sort_by=" + grid.data('sort_by') + "&sort_direction=" + grid.data('sort_direction') ;
 
   $.ajax({
     url: url
