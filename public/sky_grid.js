@@ -8,11 +8,11 @@ function AttachHandlers(e) {
   });
 };
 
-function DisplayGrid(el_grid, data){
+function DisplayGrid(grid, data){
   var tr = document.createElement('tr');
-  var columns = $(el_grid).data('columns')
-  sort_by = $(el_grid).data('sort_by')
-  sort_direction = $(el_grid).data('sort_direction') == 'asc' ? ' ^' : ' v'
+  var columns = grid.data('columns')
+  sort_by = grid.data('sort_by')
+  sort_direction = grid.data('sort_direction') == 'asc' ? ' ^' : ' v'
 
   for(var index in columns) {
     var text = columns[index];
@@ -39,7 +39,7 @@ function DisplayGrid(el_grid, data){
     };
   };
 
-  $(el_grid).html(table);
+  grid.html(table);
   $.event.trigger("grid.built");
 };
 
@@ -50,7 +50,7 @@ function FetchGridData(el_grid){
   $.ajax({
     url: url
   }).done(function (data){
-    DisplayGrid(el_grid, data);
+    DisplayGrid(grid, data);
   });
 };
 
