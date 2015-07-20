@@ -4,7 +4,19 @@ function AttachHandlers(e) {
   $('.sorter').click(function (event) {
     event.preventDefault();
     var grid = $(this).closest('.grid');
-    grid.attr('data-sort_by', $(this).attr('data-sort_by'));
+    var current_sort = grid.attr('data-sort_by');
+    var current_direction = grid.attr('data-sort_direction');
+    var next_sort = $(this).attr('data-sort_by');
+    var reverse_direction = current_direction == 'asc' ? 'desc' : 'asc'
+
+    if(current_sort == next_sort) {
+      grid.attr('data-sort_direction', reverse_direction);
+    }else{
+      grid.attr('data-sort_direction', 'asc');
+    }
+
+    grid.attr('data-sort_by', next_sort);
+
     FetchGridData(grid);
   });
 };
